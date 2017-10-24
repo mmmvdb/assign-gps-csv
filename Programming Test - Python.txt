@@ -1,0 +1,61 @@
+Python Coding Test - Version 1.0
+
+
+For the attached CSV file with a data set that is structured as in the below example.  This is a simple example but it is your chance to show how you structure code. 
+ 
+
+
+Write a program that prints to stdout the following:
+
+1) Total GPS messages.
+2) Total CAN messages.
+3) Total unique CAN messages (for purposes of this count message_id define a unique CAN message)
+4) Total run time of the data in the file base on the ts (timestamps)
+5) Average CAN messages per second of run time and per gps message
+6) The first ts (timestamp) that contains the most CAN messages
+7) The first ts (timestamp) that contains the least CAN messages
+
+Ensure the output is formatted in a readable manner. 
+
+
+You will be evaluated on:
+1) Code Structure and composition 
+2) Readability and maintainability 
+3) Proof of correctness
+4) Answers are correct
+5) Instrumentation 
+
+
+
+Data Structure:
+Rows that have a gps_id, latitude, longitude, groundspeed and truecourse are GPS messages
+Rows that have a message_id, dlc, payload are CAN messages
+
+Data example:
+
+  message_id | dlc |     payload      | puc_id |         ts          |  gps_id   |     latitude      |     longitude      |    groundspeed    |     truecourse     
+------------+-----+------------------+--------+---------------------+-----------+-------------------+--------------------+-------------------+--------------------
+            |     |                  |   8765 | 2016-10-28 05:00:00 | 681665533 | 35.05875000000000 | -80.38093000000000 |  0.01841250000000 |   0.0 0000000000000
+ 0CFF1003   |   8 | FFFFFFFFFFFFFFFF |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 1CFFFF17   |   8 | 9AFF64FFFFFFFFFF |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 0CFFFE17   |   8 | 3317FFFFFFFFFFFF |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 1CFFFE17   |   8 | 270000CCFFFFFFFF |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 18FECA06   |   8 | 01FFD0070901FFFF |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 18FEF719   |   8 | FFFFFFFFFFFFE000 |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 18FEFCF3   |   8 | FF67FFFFFFFFFFFF |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 18FFFF17   |   8 | 18A02FA02F08084C |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 18FFFE17   |   8 | 2A4848FFFFFFFFFF |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+ 18FEF103   |   8 | FF0000CFFFFFFFFF |   8765 | 2016-10-28 05:00:00 |           |                   |                    |                   |                   
+            |     |                  |   8765 | 2016-10-28 05:00:01 | 681665537 | 35.05875000000000 | -80.38093000000000 |  0.07134830000000 |   0.00000000000000
+ 18FEF719   |   8 | FFFFFFFFFFFFE000 |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 1CFFFF17   |   8 | 9AFF64FFFFFFFFFF |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 18FEFCF3   |   8 | FF67FFFFFFFFFFFF |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 1CFFFE17   |   8 | 270000CCFFFFFFFF |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 18FFFF17   |   8 | 18A02FA02F08084C |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 0CFFFE17   |   8 | 3317FFFFFFFFFFFF |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 18FFFE17   |   8 | 2A4848FFFFFFFFFF |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 18FECA06   |   8 | 01FFD0070901FFFF |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 18FEF103   |   8 | FF0000CFFFFFFFFF |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+ 0CFF1003   |   8 | FFFFFFFFFFFFFFFF |   8765 | 2016-10-28 05:00:01 |           |                   |                    |                   |                   
+            |     |                  |   8765 | 2016-10-28 05:00:02 | 681665542 | 35.05875000000000 | -80.38093000000000 |  0.03222180000000 |   0.00000000000000
+
