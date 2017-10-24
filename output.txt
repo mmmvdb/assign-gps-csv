@@ -1,0 +1,8 @@
+Number of GPS Messages: 63843
+Number of CAN Messages: 1099032
+Number of Unique CAN Messages: 61
+Total Runtime: 20:34:58
+Average Number of CANs per GPS: 17.214605
+Average Number of CANs per ts: 16.208405
+First Timestamp with most CAN messages (at 49): 2016-10-28 11:51:28
+First Timestamp with least CAN messages (at 7): 2016-10-28 08:56:35

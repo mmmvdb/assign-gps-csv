@@ -56,8 +56,8 @@ for row in getLine('gps_can_data.csv'):
     # I use the messageID and gpsID from the row a lot, so I save them off for use later in the for loop
     # I need a count of each type of message.  Luckilly I can just check message_id
     # and gps_id for this
-    messageID = row["message_id"]
-    gpsID = row["gps_id"]
+    messageID = row['message_id']
+    gpsID = row['gps_id']
 
     
     # Since I determined with the test below that the whole file is ordered by ts
@@ -65,14 +65,14 @@ for row in getLine('gps_can_data.csv'):
         # I have to worry about if the days and months are zero padded and am unsure about that with the example
         # These also raise valueExceptions but that doesn't seem to be a problem for this CSV if it was, I could try catch around
         # these statments and handle the exception
-        startTS = dt.strptime(row["ts"], '%Y-%m-%d %H:%M:%S')
+        startTS = dt.strptime(row['ts'], '%Y-%m-%d %H:%M:%S')
         firstRow = False
     
     # I have to worry about if the days and months are zero padded and am unsure about that with the example
     # These also raise valueExceptions but that doesn't seem to be a problem for this CSV if it was, I could try catch around
     # these statments and handle the exception
     # I use the current row's ts as a key to group ts messages, but it doubles as my end ts for the run time
-    currentRowTS = dt.strptime(row["ts"], '%Y-%m-%d %H:%M:%S')
+    currentRowTS = dt.strptime(row['ts'], '%Y-%m-%d %H:%M:%S')
     
     
     if gpsID:
@@ -109,9 +109,9 @@ for row in getLine('gps_can_data.csv'):
     
     # Part of the ts ordering test of the big CSV file
     # The fact some timestamps are equal shouldn't be a problem here
-    #currentDate = dt.strptime(row["ts"], '%Y-%m-%d %H:%M:%S')
+    #currentDate = dt.strptime(row['ts'], '%Y-%m-%d %H:%M:%S')
     #if oldDate > currentDate:
-    #    print("%s : Bigger than : %s" % (oldDate, currentDate))
+    #    print('%s : Bigger than : %s' % (oldDate, currentDate))
     
     #oldDate = currentDate
     
@@ -120,7 +120,7 @@ runTime = currentRowTS - startTS
 # It may be possible to use a better method of working with the CSV than my current solution of creating dictionaries to iterate 
 # across (something I was trying to avoid by doing this iterativly rather than loading into objects).  
 # Pandas might be an option but I would need to do some research to learn how to use that module, so at the moment
-# I'm going for a "good enough" approach
+# I'm going for a 'good enough' approach
 
 # Find the gps Average count of CANS
 total = 0
@@ -136,8 +136,8 @@ total = 0
 firstEle = True
 minTSVal = 0
 maxTSVal = 0
-minTS = ""
-maxTS = ""
+minTS = ''
+maxTS = ''
 
 for key, value in tsMessages.items():
     # rather than loop twice over this, let's find the min and max as well as store their positions.  I already know that the
@@ -164,12 +164,13 @@ for key, value in tsMessages.items():
     
 
 tsAvg = total / len(tsMessages)
-    
-print("Number of GPS Messages: %i" % (gpsCount))
-print("Number of CAN Messages: %i" % (canCount))
-print("Number of Unique CAN Messages: %i" % (len(canMessages)))
-print("Total Runtime: %s" % (runTime))
-print("Average Number of CANs per GPS: %f" % (gpsAvg))
-print("Average Number of CANs per ts: %f" % (tsAvg))
-print("First Timestamp with most CAN messages (at %i): %s" % (maxTSVal, maxTS))
-print("First Timestamp with least CAN messages (at %i): %s" % (minTSVal, minTS))
+
+# print goes to stdout
+print('Number of GPS Messages: %i' % (gpsCount))
+print('Number of CAN Messages: %i' % (canCount))
+print('Number of Unique CAN Messages: %i' % (len(canMessages)))
+print('Total Runtime: %s' % (runTime))
+print('Average Number of CANs per GPS: %f' % (gpsAvg))
+print('Average Number of CANs per ts: %f' % (tsAvg))
+print('First Timestamp with most CAN messages (at %i): %s' % (maxTSVal, maxTS))
+print('First Timestamp with least CAN messages (at %i): %s' % (minTSVal, minTS))
